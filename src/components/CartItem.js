@@ -20,7 +20,7 @@ const CartItem = ({ item }) => {
       </div>
       <div className="cart-item-details">
         <h4 className="cart-item-name">{name}</h4>
-        <p className="cart-item-price">${price.toFixed(2)}</p>
+        <p className="cart-item-price">₹{price}</p>
       </div>
       <div className="cart-item-quantity">
         <button 
@@ -38,7 +38,7 @@ const CartItem = ({ item }) => {
         </button>
       </div>
       <div className="cart-item-total">
-        ${(price * quantity).toFixed(2)}
+        ₹{(price * quantity)}
       </div>
       <button 
         onClick={() => removeFromCart(id)} 

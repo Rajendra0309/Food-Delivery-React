@@ -36,7 +36,7 @@ const RestaurantPage = () => {
           src={imgError ? fallbackImage : restaurant.image} 
           alt={restaurant.name}
           onError={() => setImgError(true)}
-          style={{ display: 'none' }} // Hidden image just to trigger onError
+          style={{ display: 'none' }}
         />
         <div className="restaurant-banner-overlay">
           <div className="container">
@@ -44,7 +44,7 @@ const RestaurantPage = () => {
             <div className="restaurant-banner-meta">
               <span className="restaurant-rating">★ {restaurant.rating}</span>
               <span className="restaurant-delivery-time">{restaurant.deliveryTime}</span>
-              <span className="restaurant-delivery-fee">${restaurant.deliveryFee.toFixed(2)} delivery</span>
+              <span className="restaurant-delivery-fee">₹{restaurant.deliveryFee} delivery</span>
               <span className="restaurant-cuisine">{restaurant.cuisine}</span>
             </div>
             <p className="restaurant-description">{restaurant.description}</p>

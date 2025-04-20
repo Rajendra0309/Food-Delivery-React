@@ -19,6 +19,10 @@ const CartPage = () => {
     );
   }
   
+  const deliveryFee = 49;
+  const tax = Math.round(getCartTotal() * 0.05);
+  const total = getCartTotal() + deliveryFee + tax;
+  
   return (
     <div className="container">
       <div className="cart-page">
@@ -44,22 +48,22 @@ const CartPage = () => {
             
             <div className="summary-row">
               <span>Subtotal</span>
-              <span>${getCartTotal().toFixed(2)}</span>
+              <span>₹{getCartTotal()}</span>
             </div>
             
             <div className="summary-row">
               <span>Delivery Fee</span>
-              <span>${cartItems.length > 0 ? '2.99' : '0.00'}</span>
+              <span>₹{deliveryFee}</span>
             </div>
             
             <div className="summary-row">
-              <span>Tax</span>
-              <span>${(getCartTotal() * 0.08).toFixed(2)}</span>
+              <span>GST (5%)</span>
+              <span>₹{tax}</span>
             </div>
             
             <div className="summary-row total-row">
               <span>Total</span>
-              <span>${(getCartTotal() + (cartItems.length > 0 ? 2.99 : 0) + getCartTotal() * 0.08).toFixed(2)}</span>
+              <span>₹{total}</span>
             </div>
             
             <Link to="/checkout" className="btn btn-primary checkout-btn">

@@ -90,6 +90,68 @@ input[type="tel"] {
   border-top: 1px solid var(--border-color);
 }
 
+.upi-details {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+}
+
+.upi-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.upi-icon {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-color);
+}
+
+.upi-app-label {
+  margin: 15px 0 10px;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.upi-app-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.upi-app-btn {
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.upi-app-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.upi-app-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  font-weight: 500;
+  transform: scale(1.02);
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+
 .place-order-btn {
   width: 100%;
   padding: 15px;

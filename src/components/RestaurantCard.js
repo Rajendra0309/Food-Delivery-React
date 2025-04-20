@@ -22,7 +22,7 @@ const RestaurantCard = ({ restaurant }) => {
         <div className="restaurant-meta">
           <span className="restaurant-rating">★ {rating}</span>
           <span className="restaurant-delivery-time">{deliveryTime}</span>
-          <span className="restaurant-delivery-fee">${deliveryFee.toFixed(2)} delivery</span>
+          <span className="restaurant-delivery-fee">₹{deliveryFee} delivery</span>
         </div>
         <p className="restaurant-cuisine">{cuisine}</p>
         <p className="restaurant-description">{description}</p>

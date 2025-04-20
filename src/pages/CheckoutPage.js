@@ -13,7 +13,9 @@ const CheckoutPage = () => {
     address: '',
     city: '',
     zipCode: '',
-    paymentMethod: 'credit'
+    paymentMethod: 'credit',
+    upiId: '',
+    upiApp: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
@@ -26,17 +28,22 @@ const CheckoutPage = () => {
     }));
   };
   
+  const selectUpiApp = (app) => {
+    setFormData(prev => ({
+      ...prev,
+      upiApp: app
+    }));
+  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
       setIsOrderPlaced(true);
       clearCart();
       
-      // Redirect to home page after a delay
       setTimeout(() => {
         navigate('/');
       }, 3000);
@@ -44,8 +51,8 @@ const CheckoutPage = () => {
   };
   
   const subtotal = getCartTotal();
-  const deliveryFee = 2.99;
-  const tax = subtotal * 0.08;
+  const deliveryFee = 49;
+  const tax = Math.round(subtotal * 0.05);
   const total = subtotal + deliveryFee + tax;
   
   if (isOrderPlaced) {
@@ -134,7 +141,7 @@ const CheckoutPage = () => {
                 </div>
                 
                 <div className="form-group">
-                  <label htmlFor="zipCode">ZIP Code</label>
+                  <label htmlFor="zipCode">PIN Code</label>
                   <input 
                     type="text" 
                     id="zipCode" 
@@ -160,7 +167,19 @@ const CheckoutPage = () => {
                     checked={formData.paymentMethod === 'credit'}
                     onChange={handleChange}
                   />
-                  <label htmlFor="credit">Credit Card</label>
+                  <label htmlFor="credit">Credit/Debit Card</label>
+                </div>
+                
+                <div className="payment-method">
+                  <input 
+                    type="radio" 
+                    id="upi" 
+                    name="paymentMethod" 
+                    value="upi"
+                    checked={formData.paymentMethod === 'upi'}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="upi">UPI Payment</label>
                 </div>
                 
                 <div className="payment-method">
@@ -208,12 +227,59 @@ const CheckoutPage = () => {
                   </div>
                 </div>
               )}
+              
+              {formData.paymentMethod === 'upi' && (
+                <div className="upi-details">
+                  <div className="form-group">
+                    <label htmlFor="upiId">UPI ID</label>
+                    <input 
+                      type="text" 
+                      id="upiId" 
+                      name="upiId" 
+                      placeholder="yourname@upi" 
+                      value={formData.upiId}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <p className="upi-app-label">Select UPI App:</p>
+                  <div className="upi-app-grid">
+                    <button
+                      type="button"
+                      className={`upi-app-btn ${formData.upiApp === 'gpay' ? 'active' : ''}`}
+                      onClick={() => selectUpiApp('gpay')}
+                    >
+                      Google Pay
+                    </button>
+                    <button
+                      type="button"
+                      className={`upi-app-btn ${formData.upiApp === 'phonepe' ? 'active' : ''}`}
+                      onClick={() => selectUpiApp('phonepe')}
+                    >
+                      PhonePe
+                    </button>
+                    <button
+                      type="button"
+                      className={`upi-app-btn ${formData.upiApp === 'paytm' ? 'active' : ''}`}
+                      onClick={() => selectUpiApp('paytm')}
+                    >
+                      Paytm
+                    </button>
+                    <button
+                      type="button"
+                      className={`upi-app-btn ${formData.upiApp === 'bhim' ? 'active' : ''}`}
+                      onClick={() => selectUpiApp('bhim')}
+                    >
+                      BHIM
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
             
             <button 
               type="submit" 
               className="btn btn-primary place-order-btn"
-              disabled={isSubmitting}
+              disabled={isSubmitting || (formData.paymentMethod === 'upi' && (!formData.upiId || !formData.upiApp))}
             >
               {isSubmitting ? 'Processing...' : 'Place Order'}
             </button>
@@ -224,22 +290,22 @@ const CheckoutPage = () => {
             
             <div className="summary-row">
               <span>Subtotal</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>₹{subtotal}</span>
             </div>
             
             <div className="summary-row">
               <span>Delivery Fee</span>
-              <span>${deliveryFee.toFixed(2)}</span>
+              <span>₹{deliveryFee}</span>
             </div>
             
             <div className="summary-row">
-              <span>Tax</span>
-              <span>${tax.toFixed(2)}</span>
+              <span>GST (5%)</span>
+              <span>₹{tax}</span>
             </div>
             
             <div className="summary-row total-row">
               <span>Total</span>
-              <span>${total.toFixed(2)}</span>
+              <span>₹{total}</span>
             </div>
           </div>
         </div>
