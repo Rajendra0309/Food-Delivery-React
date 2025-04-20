@@ -51,11 +51,22 @@
 .menu-section h2 {
   margin-bottom: 20px;
   font-size: 1.8rem;
+  color: var(--text-color);
 }
 
 .error-message {
   text-align: center;
   padding: 60px 20px;
+}
+
+.error-message h2 {
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.error-message p {
+  color: var(--text-color);
+  opacity: 0.7;
 }
 
 @media (max-width: 768px) {

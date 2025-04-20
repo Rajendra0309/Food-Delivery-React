@@ -6,8 +6,9 @@ import './Header.css';
 
 const Header = () => {
   const { getItemCount } = useCart();
-  const { darkMode, toggleTheme } = useTheme();
+  const { darkMode, toggleTheme, setSystemTheme, theme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showThemeOptions, setShowThemeOptions] = useState(false);
 
   return (
     <header className="header">
@@ -31,10 +32,48 @@ const Header = () => {
                 {getItemCount() > 0 && <span className="cart-badge">{getItemCount()}</span>}
               </Link>
             </li>
-            <li>
-              <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle dark mode">
+            <li className="theme-selector">
+              <button 
+                className="theme-toggle" 
+                onClick={() => setShowThemeOptions(!showThemeOptions)} 
+                aria-label="Theme options"
+              >
                 {darkMode ? '☀️' : '🌙'}
               </button>
+              
+              {showThemeOptions && (
+                <div className="theme-dropdown">
+                  <button 
+                    className={`theme-option ${theme === 'light' ? 'active' : ''}`} 
+                    onClick={() => {
+                      localStorage.setItem('theme', 'light');
+                      toggleTheme();
+                      setShowThemeOptions(false);
+                    }}
+                  >
+                    Light
+                  </button>
+                  <button 
+                    className={`theme-option ${theme === 'dark' ? 'active' : ''}`} 
+                    onClick={() => {
+                      localStorage.setItem('theme', 'dark');
+                      toggleTheme();
+                      setShowThemeOptions(false);
+                    }}
+                  >
+                    Dark
+                  </button>
+                  <button 
+                    className={`theme-option ${!localStorage.getItem('theme') ? 'active' : ''}`} 
+                    onClick={() => {
+                      setSystemTheme();
+                      setShowThemeOptions(false);
+                    }}
+                  >
+                    System
+                  </button>
+                </div>
+              )}
             </li>
           </ul>
         </nav>
